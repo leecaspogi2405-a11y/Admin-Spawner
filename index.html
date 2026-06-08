@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christian Lee's Brainrot Control Panel</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #1a1a1a; 
+            color: #fff; 
+            text-align: center; 
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { color: #ffaa00; text-shadow: 2px 2px 4px #000; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px; }
+        .section { padding: 15px; border: 2px solid #444; border-radius: 8px; background: #2a2a2a; box-shadow: 0px 4px 10px rgba(0,0,0,0.5); min-width: 280px; }
+        .brainrot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 400px; overflow-y: auto; padding-right: 5px; }
+        .brainrot-grid::-webkit-scrollbar { width: 6px; }
+        .brainrot-grid::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+        button { padding: 10px; margin: 3px; cursor: pointer; background: #444; color: white; border: 1px solid #555; border-radius: 4px; font-size: 13px; transition: all 0.2s ease; }
+        button:hover { background: #555; border-color: #777; }
+        button.selected { background: #00ff00; color: black; font-weight: bold; border-color: #00ff00; box-shadow: 0px 0px 8px #00ff00; }
+        input, select { padding: 10px; background: #333; color: #fff; border: 1px solid #555; border-radius: 4px; text-align: center; font-size: 14px; }
+        #amountBox { width: 80px; font-size: 16px; }
+        .token-section { margin: 20px auto; max-width: 500px; padding: 15px; background: #222; border: 1px dashed #555; border-radius: 6px; }
+        .token-section input { width: 80%; margin-top: 5px; }
+        #spawnBtn { background: #ff0055; font-size: 20px; font-weight: bold; padding: 15px 40px; border: none; border-radius: 8px; box-shadow: 0px 5px 15px rgba(255, 0, 85, 0.4); margin: 30px auto; display: block; color: white; cursor: pointer; }
+        #spawnBtn:hover { background: #ff1a6b; transform: scale(1.03); }
+        #status { font-weight: bold; margin-top: 10px; color: #ffaa00; }
+    </style>
+</head>
+<body>
+
+    <h1>🧠 BRAINROT ADMIN WEB PANEL 🧠</h1>
+
+    <div class="token-section">
+        <h3>🔗 GitHub Auto-Sync Setup (Optional pero Mas Solid)</h3>
+        <label>GitHub Username:</label> <input type="text" id="ghUser" placeholder="ChristianLee"><br><br>
+        <label>Repo Name:</label> <input type="text" id="ghRepo" placeholder="brainrot-game"><br><br>
+        <label>GitHub Token (PAT):</label> <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+        <p style="font-size: 11px; color: #aaa;">*Kapag may token, automatic mag-se-save sa GitHub ang command sa isang click! Kung wala, mag-do-download ito bilang file.</p>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h3>1. Select Brainrot & Amount</h3>
+            <p>Piraso (Amount):</p>
+            <input type="number" id="amountBox" value="1" min="1"><br><br>
+            <div class="brainrot-grid">
+                <button onclick="select('brainrot', 'Gangster Footera', this)">Gangster Footera</button>
+                <button onclick="select('brainrot', 'Trippi Troppi', this)">Trippi Troppi</button>
+                <button onclick="select('brainrot', 'Bananita Dolphinita', this)">Bananita Dolphinita</button>
+                <button onclick="select('brainrot', 'Ballerina Cappuccina', this)">Ballerina Cappuccina</button>
+                <button onclick="select('brainrot', 'Svinina Bombardino', this)">Svinina Bombardino</button>
+                <button onclick="select('brainrot', 'Bombombini Gusini', this)">Bombombini Gusini</button>
+                <button onclick="select('brainrot', 'Cappucino Assasino', this)">Cappucino Assasino</button>
+                <button onclick="select('brainrot', 'La Vacca Saturno', this)">La Vacca Saturno</button>
+                <button onclick="select('brainrot', 'Tralalero Tralala', this)">Tralalero Tralala</button>
+                <button onclick="select('brainrot', 'Matteo', this)">Matteo</button>
+                <button onclick="select('brainrot', 'Crab Chef', this)">Crab Chef</button>
+                <button onclick="select('brainrot', 'Giraffa Celestre', this)">Giraffa Celestre</button>
+                <button onclick="select('brainrot', 'Six Seven', this)">Six Seven</button>
+                <button onclick="select('brainrot', 'Odin Din Din Dun', this)">Odin Din Din Dun</button>
+                <button onclick="select('brainrot', 'Strawberry Elephant', this)">Strawberry Elephant</button>
+                <button onclick="select('brainrot', 'Summerini Fattini', this)">Summerini Fattini</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>2. Select Mutation</h3>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <button onclick="select('mutation', 'Normal', this)" class="selected">Normal</button>
+                <button onclick="select('mutation', 'Gold', this)">Gold</button>
+                <button onclick="select('mutation', 'Diamond', this)">Diamond</button>
+                <button onclick="select('mutation', 'Crab', this)">Crab</button>
+                <button onclick="select('mutation', 'Alien', this)">Alien</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>3. Select Area</h3>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <button onclick="select('area', 'Common Area', this)" class="selected">Common Area</button>
+                <button onclick="select('area', 'Rare Area', this)">Rare Area</button>
+                <button onclick="select('area', 'Legendary Area', this)">Legendary Area</button>
+                <button onclick="select('area', 'Mythical Area', this)">Mythical Area</button>
+                <button onclick="select('area', 'Godly Area', this)">Godly Area</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="status">Ready...</div>
+    <button id="spawnBtn" onclick="sendToRoblox()">⚡ SPAWN IN ROBLOX ⚡</button>
+
+    <script>
+        let selections = { brainrot: "", mutation: "Normal", area: "Common Area" };
+        // Kumukuha ng timestamp para laging mataas ang ID at mapansin agad ng Roblox loop
+        let commandID = Math.floor(Date.now() / 1000); 
+
+        function select(type, value, btn) {
+            let buttons = btn.parentElement.getElementsByTagName('button');
+            for(let b of buttons) b.classList.remove('selected');
+            btn.classList.add('selected');
+            selections[type] = value;
+        }
+
+        async function sendToRoblox() {
+            if(!selections.brainrot) { alert("Pumili ka muna ng Brainrot, boss!"); return; }
+            let amt = parseInt(document.getElementById('amountBox').value) || 1;
+            commandID++;
+
+            let outputData = {
+                CommandID: commandID,
+                Brainrot: selections.brainrot,
+                Amount: amt,
+                Mutation: selections.mutation,
+                Area: selections.area,
+                IsPublic: true
+            };
+
+            let token = document.getElementById('ghToken').value;
+            let user = document.getElementById('ghUser').value;
+            let repo = document.getElementById('ghRepo').value;
+            let statusDiv = document.getElementById('status');
+
+            // KUNG MAY TOKEN: AUTOMATIC REPO FILE UPDATE VIA GITHUB API
+            if(token && user && repo) {
+                statusDiv.innerHTML = "⏳ Sending command live to GitHub...";
+                let url = `https://api.github.com/repos/${user}/${repo}/contents/spawn_command.json`;
+                
+                // Kukunin muna ang SHA (parang ID ng file) para mapayagan ang pagoverwrite
+                let sha = "";
+                try {
+                    let getRes = await fetch(url, { headers: { "Authorization": `token ${token}` } });
+                    if(getRes.ok) { let getJson = await getRes.json(); sha = getJson.sha; }
+                } catch(e) {}
+
+                let bodyData = {
+                    message: "Admin Web Spawn Triggered",
+                    content: btoa(JSON.stringify(outputData, null, 2)), // Ginagawang base64 para sa GitHub API
+                    sha: sha ? sha : undefined
+                };
+
+                let putRes = await fetch(url, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                    body: JSON.stringify(bodyData)
+                });
+
+                if(putRes.ok) {
+                    statusDiv.innerHTML = "✅ SUCCESS! Na-send na sa GitHub! Lalapag na sa Roblox sa loob ng 4 na segundo.";
+                } else {
+                    statusDiv.innerHTML = "❌ Failed to sync with API. Sinubukan na lang i-download ang file.";
+                    triggerDownload(outputData);
+                }
+            } else {
+                // KUNG WALANG TOKEN: MANUAL FILE DOWNLOAD FALLBACK
+                triggerDownload(outputData);
+                statusDiv.innerHTML = "💾 Na-download ang 'spawn_command.json'. I-upload mo ito sa iyong repo manually!";
+            }
+        }
+
+        function triggerDownload(data) {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+            let downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "spawn_command.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+    </script>
+</body>
+</html>
